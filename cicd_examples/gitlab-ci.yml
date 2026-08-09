@@ -1,0 +1,44 @@
+
+stages:
+  - test
+  - quality
+  - security
+
+fullpathtest:
+  stage: quality
+  image: python:3.11-slim
+  before_script:
+    - pip install --no-cache-dir -e .
+  script:
+    - fullpathtest --project . --tools flake8,mypy --output report.json
+  artifacts:
+    reports:
+      json: report.json
+    expire_in: 1 week
+  allow_failure: false
+
+bandit-scan:
+  stage: security
+  image: python:3.11-slim
+  before_script:
+    - pip install bandit
+  script:
+    - bandit -r . -f json -o bandit_report.json
+  artifacts:
+    reports:
+      json: bandit_report.json
+    expire_in: 1 week
+
+nightly-full-scan:
+  stage: quality
+  image: python:3.11-slim
+  only:
+    - schedules
+  before_script:
+    - pip install --no-cache-dir -e .
+  script:
+    - fullpathtest --project . --full --format html --output nightly_report.html
+  artifacts:
+    paths:
+      - nightly_report.html
+    expire_in: 30 days

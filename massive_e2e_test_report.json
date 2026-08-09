@@ -1,0 +1,73 @@
+{
+  "test_type": "massive_e2e_real_test",
+  "timestamp": "2026-05-18T04:28:26.770734",
+  "duration_seconds": 1.4282195568084717,
+  "summary": {
+    "total_tasks": 1353,
+    "successful_tasks": 1352,
+    "failed_tasks": 1,
+    "total_bugs": 0,
+    "critical_bugs": 0,
+    "high_bugs": 0,
+    "medium_bugs": 0,
+    "low_bugs": 0,
+    "memory_baseline_mb": 21.03125,
+    "memory_end_mb": 32.234375,
+    "memory_peak_mb": 32.234375
+  },
+  "bugs": [],
+  "layer_results": [
+    {
+      "layer_number": 1,
+      "layer_name": "EntryPoint",
+      "success_count": 2,
+      "failure_count": 1,
+      "errors": [
+        "nonexistent: \u8def\u5f84\u4e0d\u5b58\u5728: /workspace/nonexistent_file_12345.py"
+      ],
+      "performance_metrics": {
+        "simple_file_duration": 5.269050598144531e-05,
+        "directory_duration": 0.0004763603210449219
+      }
+    },
+    {
+      "layer_number": 2,
+      "layer_name": "TaskManager",
+      "success_count": 100,
+      "failure_count": 0,
+      "errors": [],
+      "performance_metrics": {}
+    },
+    {
+      "layer_number": 17,
+      "layer_name": "Lexer",
+      "success_count": 100,
+      "failure_count": 0,
+      "errors": [],
+      "performance_metrics": {}
+    },
+    {
+      "layer_number": 99,
+      "layer_name": "ConcurrentStress",
+      "success_count": 150,
+      "failure_count": 0,
+      "errors": [],
+      "performance_metrics": {
+        "concurrency_5": 0.09199094772338867,
+        "concurrency_10": 0.09290528297424316,
+        "concurrency_20": 0.08967208862304688
+      }
+    },
+    {
+      "layer_number": 100,
+      "layer_name": "MemoryLeak",
+      "success_count": 1000,
+      "failure_count": 0,
+      "errors": [],
+      "performance_metrics": {
+        "memory_growth": 11.203125,
+        "memory_peak": 32.234375
+      }
+    }
+  ]
+}

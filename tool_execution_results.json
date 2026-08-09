@@ -1,0 +1,53 @@
+{
+  "summary": {
+    "total_executions": 3,
+    "successful": 3,
+    "failed": 0,
+    "not_found": 0,
+    "total_issues": 0,
+    "total_time": 8.706147193908691,
+    "average_time": 2.9020490646362305,
+    "issues_by_type": {},
+    "available_tools": [
+      "mypy"
+    ]
+  },
+  "results": [
+    {
+      "tool": "mypy",
+      "status": "success",
+      "execution_time": 3.1063711643218994,
+      "issue_count": 0,
+      "issues": [],
+      "metrics": {
+        "issue_count": 0,
+        "file": "full_path_test/type_definitions/core_data_types.py"
+      },
+      "error": ""
+    },
+    {
+      "tool": "mypy",
+      "status": "success",
+      "execution_time": 2.8760650157928467,
+      "issue_count": 0,
+      "issues": [],
+      "metrics": {
+        "issue_count": 0,
+        "file": "full_path_test/module_infrastructure/productized_module_base.py"
+      },
+      "error": ""
+    },
+    {
+      "tool": "mypy",
+      "status": "success",
+      "execution_time": 2.7237110137939453,
+      "issue_count": 0,
+      "issues": [],
+      "metrics": {
+        "issue_count": 0,
+        "file": "full_path_test/external_integrations/llm_clients/real_llm_integration_client.py"
+      },
+      "error": ""
+    }
+  ]
+}

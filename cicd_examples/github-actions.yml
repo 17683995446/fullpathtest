@@ -1,0 +1,153 @@
+
+name: FullPathTest Code Quality
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    - cron: '0 2 * * *'  # 每天凌晨2点运行
+
+jobs:
+  fullpathtest-analysis:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 mypy pylint bandit
+        pip install -e .
+    
+    - name: Run FullPathTest Analysis
+      run: |
+        fullpathtest --project . --tools flake8,mypy,bandit --output report.json
+    
+    - name: Upload analysis report
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: fullpathtest-report
+        path: report.json
+    
+    - name: Post summary
+      if: always()
+      run: |
+        echo "## FullPathTest Analysis Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        if [ -f report.json ]; then
+          echo "### Results:" >> $GITHUB_STEP_SUMMARY
+          cat report.json | jq -r '.summary' >> $GITHUB_STEP_SUMMARY
+        fi
+
+  incremental-analysis:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install FullPathTest
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e .
+    
+    - name: Run incremental analysis
+      run: |
+        fullpathtest --project . --incremental --only-changed
+    
+    - name: Comment on PR
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: '## FullPathTest Incremental Analysis\n\nChanged files have been analyzed. Check the workflow logs for details.'
+          })
+
+  security-scan:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install bandit safety
+    
+    - name: Run security scan
+      run: |
+        bandit -r . -f json -o bandit_report.json
+        safety check --json --output safety_report.json || true
+    
+    - name: Upload security reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: security-reports
+        path: |
+          bandit_report.json
+          safety_report.json
+        retention-days: 30
+
+  nightly-full-analysis:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install FullPathTest
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e .
+    
+    - name: Run full analysis
+      run: |
+        fullpathtest --project . --full --output full_report.json
+    
+    - name: Generate HTML report
+      run: |
+        fullpathtest --project . --format html --output full_report.html
+    
+    - name: Upload full report
+      uses: actions/upload-artifact@v3
+      with:
+        name: full-analysis-report
+        path: |
+          full_report.json
+          full_report.html
+        retention-days: 90

@@ -1,0 +1,216 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.a
+*.os
+*.pyc
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.coverage.*
+
+# MyPy
+.mypy_cache/
+
+# LLM Cache
+.llm_cache/
+
+# Build
+*.egg-info/
+dist/
+build/
+
+# Large data files
+*.json.bak
+*.txt.bak
+*.csv.bak
+
+# Temporary files
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Large test data (不提交测试用的项目)
+django_project/
+cloned_fastapi_project/
+node_modules/
+
+# Data
+data/
+
+# Caches
+.cache/
+.fullpathtest_cache/
+
+# Environment
+.env
+.env.*
+*.env
+
+# Test logs and outputs (不提交测试输出)
+v*.log
+v*.txt
+v*.json
+v*_output*.txt
+v*_output*.json
+fullpathtest_output/
+web/
+
+# Config with secrets (如果需要可以在后面添加)
+.fullpathtest/
+.fullpathtest.json
+fullpathtest_config.json
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+Jenkinsfile
+
+# Docker
+Dockerfile
+docker-compose.yml
+.docker/
+
+# DevOps
+devops/
+
+# Documentation
+*.md
+!README.md
+!CONTRIBUTING.md
+LICENSE
+
+# Output files
+*.html
+*.pdf
+report_*.html
+report_*.json
+batch_analysis_results.json
+deep_test_report.json
+deep_defect_report_v2.json
+all_50_layers_test_report.json
+
+# 敏感信息
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+*.p12
+*.pfx
+credentials.json
+secrets.json
+config/secrets.*
+config.local.*
+
+# Token和API密钥
+*token*
+*secret*
+*api_key*
+*apikey*
+*password*
+*credentials*
+!.gitignore
+!README.md
+!package.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.venv
+venv/
+ENV/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json.old
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# 日志
+*.log
+logs/
+
+# 数据库
+*.db
+*.sqlite
+*.sqlite3
